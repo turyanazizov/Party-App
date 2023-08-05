@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Number Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 id="randomNumber"></h1>
+        <form id="randomNumberForm" method="post" action="{% url 'process_form' %}">
+            {% csrf_token %}
+            <input type="hidden" id="randomNumberInput" name="randomNumber" value="">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname:</label>
+                <input type="text" class="form-control" id="surname" name="surname" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>  
+
+    <script>
+        document.getElementById("randomNumberForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const min = 10000000;
+            const max = 99999999;
+            const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            document.getElementById("randomNumberInput").value = randomNumber;
+            document.getElementById("randomNumber").innerText = "Generated Random Number: " + randomNumber;
+            this.submit();
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
